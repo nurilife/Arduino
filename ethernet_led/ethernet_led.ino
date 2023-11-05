@@ -1,11 +1,12 @@
 #include <EtherCard.h>
-#define STATIC 0 
+//#define STATIC 0 
 static byte mymac[] = { 0x74,0x69,0x69,0x2D,0x30,0x31 };
-static byte myip[] = { 192,168,0,6 };
-static byte gwip[] = { 192,168,0,1 };
+//static byte myip[] = { 192,168,0,6 };
+//static byte gwip[] = { 192,168,0,1 };
 int ledPin10 = 9;
 byte Ethernet::buffer[700];
 char const page[] PROGMEM =
+
 "HTTP/1.0 503 Service Unavailable\r\n"
 "Content-Type: text/html\r\n"
 "Retry-After: 600\r\n"
@@ -45,20 +46,21 @@ Serial.println("Ethernet controller access: OK");
 }
 ;
 
-#if STATIC
+/* #if STATIC
 Serial.println( "Getting static IP.");
 if (!ether.staticSetup(myip, gwip)){
 Serial.println( "could not get a static IP");
 blinkLed(); // blink forever to indicate a problem
 }
 #else
-
+*/
+  
 Serial.println("Setting up DHCP");
 if (!ether.dhcpSetup()){
 Serial.println( "DHCP failed");
-blinkLed(); 
+// blinkLed(); 
 }
-#endif
+//#endif
 
 ether.printIp("My IP: ", ether.myip);
 ether.printIp("Netmask: ", ether.netmask);
