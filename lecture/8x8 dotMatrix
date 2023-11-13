@@ -1,0 +1,40 @@
+#include <LedControl.h>
+
+LedControl dot =LedControl(12,11,10,1);
+
+byte heart[]={
+B01101100,
+B11111110,
+B11111110,
+B11111110,
+B01111100,
+B00111000,
+B00010000,
+B00000000
+};
+
+void setup() {
+ dot.shutdown(0,false);
+ dot.setIntensity(0,5);
+ dot.clearDisplay(0);
+}
+
+void loop() {
+// put your main code here, to run repeatedly:
+ dotmatrix();
+ delay(200);
+}
+void dotmatrix(){
+ for(int i=0;i<8;i++){
+ dot.setRow(0,i,heart[i]);
+}
+ for(int i=0;i<8;i++){
+  if((heart[i]& 0b10000000)>0){
+   heart[i]=heart[i]<<1;
+   heart[i]+=B00000001;
+  }
+  else{
+  heart[i]=heart[i]<<1;
+  }
+ }
+}
