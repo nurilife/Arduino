@@ -1,4 +1,28 @@
 #include <LedControl.h>
+LedControl dot = LedControl(12, 11, 10, 1);  // (DIN, CLK, LOAD, 모듈 개수)
+byte injego[3][8] = {
+    {0b00000000, 0b00110010, 0b01001010, 0b01001010, 0b00110010, 0b00000000, 0b01000000, 0b01111110},
+    {0b00000000, 0b01110101, 0b00100101, 0b00101101, 0b01010101, 0b01010101, 0b01010101, 0b00000000},
+    {0b00000000, 0b01111110, 0b00000010, 0b00000010, 0b00010010, 0b00010100, 0b01111110, 0b00000000}
+};
+void setup() {
+    dot.shutdown(0, false);    // 표시 활성화
+    dot.setIntensity(0, 8);    // 밝기 설정 (0-15)
+    dot.clearDisplay(0);       // 표시 초기화
+}
+void loop() {
+    for (int i = 0; i <3; i++) {
+        for (int j = 0; j <8; j++) {
+          dot.setRow(0, j, injego[i][j]);
+        }
+     delay(500);
+    }
+}
+
+
+
+
+#include <LedControl.h>
 LedControl dot =LedControl(12,11,10,1)
 void shift_mat(byte* mat1, byte* mat2, String sft_direction, intn_shift, LedControl dot);
 byte mat1[8]={0x00, 0x6c, 0x52, 0x52, 0x4c, 0x40, 0x5e, 0x00}; //인
