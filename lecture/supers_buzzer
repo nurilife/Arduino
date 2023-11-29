@@ -1,0 +1,33 @@
+int trig = 8;
+int echo = 9;
+int bz = 6;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(trig,OUTPUT);  // 센서 Trig 핀
+  pinMode(echo,INPUT);   // 센서 Echo 핀
+  pinMode(bz, OUTPUT);
+}
+
+void loop() {
+  int duration, cm;
+  digitalWrite(trig, HIGH);   // 센서에 Trig 신호 입력
+  delayMicroseconds(10);  // 10us 정도 유지
+  digitalWrite(trig, LOW);    // Trig 신호 off
+  duration = pulseIn(echo, HIGH);  // Echo pin: HIGH->Low 간격을 측정
+  cm = microsecondsToCentimeters(duration);  // 거리(cm)로 변환
+  Serial.print(cm);
+  Serial.println("cm");
+  delay(300);  // 0.3초 대기 후 다시 측정
+
+  if(cm<=50){
+   digitalWrite(bz, HIGH);
+   delay(500);
+   digitalWrite(bz, LOW);
+  }
+
+}
+
+int microsecondsToCentimeters(int microseconds) {
+  return microseconds / 29 / 2;
+}
