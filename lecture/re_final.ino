@@ -79,7 +79,7 @@ void loop() {
       if (h <= 90) {
         // 스위치가 눌리면 노래를 중단하고 loop에서 빠져나감
         noTone(tonepin);
-        delay(1000);
+        delay(300);
         break;
       }
 
